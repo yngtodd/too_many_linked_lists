@@ -15,9 +15,7 @@ impl<T> List<T> {
     }
 
     pub fn peek(&self) -> Option<&T> {
-        self.head.as_ref().map(|node| {
-            &node.elem
-        })
+        self.head.as_ref().map(|node| &node.elem)
     }
 
     pub fn push(&mut self, elem: T) {
@@ -64,8 +62,6 @@ mod test {
         list.push(1.);
         list.push(2.);
 
-        assert_eq!(list.peek(), Some(&2.));
-
         // Pop still OK
         assert_eq!(list.pop(), Some(2.));
         assert_eq!(list.pop(), Some(1.));
@@ -78,5 +74,15 @@ mod test {
         assert_eq!(list.pop(), Some(3.));
         assert_eq!(list.pop(), Some(0.));
         assert_eq!(list.pop(), None);
+    }
+
+    #[test]
+    fn peek() {
+        let mut list = List::new();
+
+        list.push(0);
+        assert_eq!(list.peek(), Some(&0));
+        list.pop();
+        assert_eq!(list.peek(), None);
     }
 }
