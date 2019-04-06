@@ -18,6 +18,12 @@ impl<T> List<T> {
         self.head.as_ref().map(|node| &node.elem)
     }
 
+    pub fn peek_mut(&mut self) -> Option<&mut T> {
+        self.head.as_mut().map(|node| {
+            &mut node.elem
+        })
+    }
+
     pub fn push(&mut self, elem: T) {
         let new_node = Box::new(Node {
             elem: elem,
@@ -80,9 +86,11 @@ mod test {
     fn peek() {
         let mut list = List::new();
 
+        assert_eq!(list.peek(), None);
+        assert_eq!(list.peek_mut(), None);
+
         list.push(0);
         assert_eq!(list.peek(), Some(&0));
-        list.pop();
-        assert_eq!(list.peek(), None);
+        assert_eq!(list.peek_mut(), Some(&mut 0));
     }
 }
