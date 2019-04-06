@@ -1,5 +1,15 @@
 use std::mem;
 
+enum Link {
+    Empty,
+    More(Box<Node>),
+}
+
+struct Node {
+    elem: i32,
+    next: Link,
+}
+
 pub struct List {
     head: Link,
 }
@@ -37,16 +47,6 @@ impl Drop for List {
             cur_link = mem::replace(&mut boxed_node.next, Link::Empty);
         }
     }
-}
-
-enum Link {
-    Empty,
-    More(Box<Node>),
-}
-
-struct Node {
-    elem: i32,
-    next: Link,
 }
 
 #[cfg(test)]
